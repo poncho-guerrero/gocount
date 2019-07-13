@@ -1,0 +1,36 @@
+{
+  "name": "gocount",
+  "version": "1.0.0",
+  "description": "Have unlimited tally counters with analytics integration.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Mocha testing script.\" && exit 1",
+    "doc": "echo \"Sassdoc and Jsdoc scripts.\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poncho-guerrero/gocount.git"
+  },
+  "author": "Oscar Alfonso Guerrero Nuñez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poncho-guerrero/gocount/issues"
+  },
+  "homepage": "https://github.com/poncho-guerrero/gocount#readme",
+  "dependencies": {
+    "@lasso/marko-taglib": "^1.0.15",
+    "d3": "^5.9.7",
+    "express": "^4.17.1",
+    "lasso": "^3.3.0",
+    "lasso-marko": "^2.4.7",
+    "lasso-sass": "^3.0.0",
+    "marko": "^4.18.9",
+    "marko-cli": "^7.0.10",
+    "node-sass": "^4.12.0",
+    "require-self-ref": "^2.0.1"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^5.0.0",
+    "sassdoc": "^2.7.0"
+  }
+}
