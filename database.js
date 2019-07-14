@@ -6,9 +6,21 @@
 //   |____/ \__,_|\__\__,_|_.__/ \__,_|___/\___|
 //
 // =====================================================================================================
+
+var config = require('./src/app/dbconfig');
+// Auth
 var firebase = require("firebase/app");
 require("firebase/auth");
-firebase.initializeApp(require('./src/app/dbconfig'));
+firebase.initializeApp(config.firebase);
+// Firestore
+const admin = require('firebase-admin');
+admin.initializeApp({
+  credential: admin.credential.cert(require(config.serviceAccountKeyPath)),
+  databaseURL: config.firebase.databaseURL
+});
+var db = admin.firestore();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
  * @namespace
@@ -24,6 +36,7 @@ var Database;
 var accessDatabase = function(app) {
   app.post('/server/signin', signin);
   app.post('/server/signout', signout);
+  app.post('/server/newCounter', newCounter);
 }
 
 /**
@@ -73,6 +86,22 @@ var signout = function(req, res) {
         message: error.message
       });
     });
+}
+
+/**
+ * This method is called when a user is trying to create a new counter.
+ * 
+ * @param {Object} req Request
+ * @param {Object} res Response
+ */
+var newCounter = function(req, res) {
+  db.collection('counters').add({
+    name: "Example"
+  }).then(ref => {
+    console.log('Added document with ID: ', ref.id);
+  }).catch(function(err){
+    console.log(err.message);
+  });
 }
 
 module.exports = accessDatabase;
