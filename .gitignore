@@ -11,6 +11,14 @@
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# These are the files that were assumed unchanged by git:
+# ~/src/app/dbconfig.js
+
+# To assume unchanged: git update-index --assume-unchanged path/to/file.txt
+# To revert: git update-index --no-assume-unchanged path/to/file.txt
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # These are files that are created by macOS.
 # -> https://en.wikipedia.org/wiki/.DS_Store
 .DS_Store
