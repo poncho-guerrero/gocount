@@ -7,13 +7,16 @@
 //
 // =====================================================================================================
 var template = require('./template.marko');
+var firebase = require('firebase');
 
 /** 
  * Renders `~/src/routes/index/template.marko` view when the url `~/` is requested.
  * @memberof Routes
  */
 var renderIndex = function(req, res) {
-  template.render({}, res);
+  template.render({
+    session: (firebase.auth().currentUser ? true : false)
+  }, res);
 }
 
 module.exports = renderIndex;

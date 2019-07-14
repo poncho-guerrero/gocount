@@ -1,0 +1,138 @@
+// =====================================================================================================
+//    _                            _
+//   | |    __ _ _   _  ___  _   _| |_ ___
+//   | |   / _` | | | |/ _ \| | | | __/ __|
+//   | |__| (_| | |_| | (_) | |_| | |_\__ \
+//   |_____\__,_|\__, |\___/ \__,_|\__|___/
+//               |___/
+// =====================================================================================================
+////
+/// Layouts file contains functionalities that give web components layout structure with responsiveness and grids.
+/// @group config
+////
+// Dependencies
+@import 'error';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Determines the standard unit of measurement.
+$unit: 24px;
+
+/// Contains the minimum width value for the standard spaces.
+$sizes: (
+  hand: 320px,
+  page: 600px,
+  book: 900px,
+  desk: 1200px,
+  wide: 1800px
+);
+
+/// Contains the maximum width value for the standard spaces.
+$max-sizes: (
+  hand: 599px,
+  page: 899px,
+  book: 1199px,
+  desk: 1799px,
+  wide: 3000px
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Looks for a the limit value of a space's width. Default returns the lower limit, the $max variable
+/// controls when to return the upper limit.
+/// @param {string} space [null] - Name of the space that needs to be measured.
+/// @param {bool} max [false] - Returns the upper limit of the space's width.
+///
+/// @example scss - Sass
+///   div {
+///     &.min {
+///       width: measure($space: hand);
+///     }
+///     &.max {
+///       width: measure($space: hand, $max: true);
+///     }
+///   }
+/// @example css - Compiled CSS
+///   div.min {
+///     width: 320px;
+///   }
+///   div.max {
+///     width: 599px;
+///   }
+///
+@function measure($space: null, $max: false) {
+  @if ($max) {
+    @if (map-has-key($max-sizes, $space)) {
+      @return map-get($max-sizes, $space);
+    } @else {
+      @return throw('Unknown space size selected.', value);
+    }
+  } @else {
+    @if (map-has-key($sizes, $space)) {
+      @return map-get($sizes, $space);
+    } @else {
+      @return throw('Unknown space size selected.', value);
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates the correct media query according to a space size input. The exact values will be the
+/// limits of said space in pixels. Devices with screens smaller than 320px are not going to be handled
+/// by the 'display-on()' function. Correct input values are: hand, page, book, desk, and wide.
+/// @param {string} size [null] - Space size that will be used to create a media query.
+/// @param {string} until [null] - Optional space size used to extend $size space to a larger limit.
+/// @content
+/// @output - Media query with a range width according to standard of space sizes.
+///
+/// @example scss - Sass
+///   div {
+///     @include display-on(page, $until: desk) {
+///       // Style
+///     }
+///   }
+/// @example css - Compiled CSS
+///   div {
+///     @media (min-width: 600px) and (max-width: 1799px) {
+///       // Style
+///     }
+///   }
+///
+@mixin display-on($size, $until: null) {
+  // Will contain the interior of the media query or will remain null in case of an exception.
+  $mq: null;
+  @if ($size == $until) {
+    content: throw(
+      'This media query has redundant information. ‘display-on(#{$size})’',
+      value
+    );
+  } @else if ($size == hand) and ($until == wide) {
+    content: throw(
+      'This media query is redundant, it includes all devices.',
+      value
+    );
+  }
+  @if $until {
+    // Obtains pixel values
+    $s-device: measure($size);
+    $l-until: measure($until, true);
+    // Value validation
+    @if ($s-device > $l-until) {
+      content: throw(
+        'Did you mean ‘display-on(#{$until}, $until: #{$size})’? This media query contains wrong syntax, the value of the ‘until’ parameter should be larger than the value of the ‘size’ parameter.',
+        value
+      );
+    }
+    // Builds media query
+    $mq: '(min-width: #{$s-device}) and (max-width: #{$l-until})';
+  } @else {
+    // Obtains pixel values
+    $s-device: measure($size);
+    $l-device: measure($size, true);
+    // Builds media query
+    $mq: '(min-width: #{$s-device}) and (max-width: #{$l-device})';
+  }
+  @if mq {
+    @media #{$mq} {
+      @content;
+    }
+  }
+}

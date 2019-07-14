@@ -7,6 +7,9 @@ html lang="en"
     title -- gocount
   body
     main
-      ${data.renderBody}
+      if(input.session)
+        ${input.renderBody}
+      else
+        signin
     div#scripts
       lasso-body

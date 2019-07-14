@@ -1,0 +1,55 @@
+// =====================================================================================================
+//    _____                       _   _                 _ _ _
+//   | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | (_)_ __   __ _
+//   |  _| | '__| '__/ _ \| '__| | |_| |/ _` | '_ \ / _` | | | '_ \ / _` |
+//   | |___| |  | | | (_) | |    |  _  | (_| | | | | (_| | | | | | | (_| |
+//   |_____|_|  |_|  \___/|_|    |_| |_|\__,_|_| |_|\__,_|_|_|_| |_|\__, |
+//                                                                  |___/
+// =====================================================================================================
+////
+/// It contains functions and configuration variables for handling errors.
+/// @group config
+////
+// Dependencies
+@import 'helper';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The testing mode controls weather the errors are handled using @error and interrupt the compilation (false).
+$testing-mode: false;
+
+/// Error types and descriptions of their usage.
+/// * `value` - A variable or parameter in question had the wrong value range or data type.
+/// * `handling` - Error related to error handling.
+$error-types: ('value', 'handling');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Reports and handles `@errors` and `@debugs`. Constructs their content using a message and a type.
+/// @param {string} message ['Unknown error.'] - The text message that is displayed in the @error or
+/// @debug.
+/// @param {string} error-type ['none'] - Has to be one of the types of errors inside the Error Handling
+/// Standard.
+/// @example scss - Sass
+///   @mixin set-width($width) {
+///     @if ($width == 0) {
+///       content: throw('Can't convert value 0 to pixels.', value);
+///     } @else {
+///       width: $width;
+///     }
+///   }
+///   div {
+///     @include set-width(0);
+///   }
+/// @example css - Console message
+///   Value Error: Can't Convert value 0 to pixels.
+///
+@function throw($message: 'Unknown error.', $error-type: 'none') {
+  // Verifies that $error-type is valid and part of the standard.
+  @if index($error-types, $error-type) == null {
+    @return throw($message, 'handling');
+  }
+  $final-message: '' + capitalize($error-type) + ' Error: ' + $message;
+  @if $testing-mode == false {
+    @error ($final-message);
+  }
+  @return $final-message;
+}

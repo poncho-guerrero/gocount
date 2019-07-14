@@ -19,8 +19,11 @@
   "homepage": "https://github.com/poncho-guerrero/gocount#readme",
   "dependencies": {
     "@lasso/marko-taglib": "^1.0.15",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "d3": "^5.9.7",
     "express": "^4.17.1",
+    "firebase": "^6.3.0",
     "lasso": "^3.3.0",
     "lasso-marko": "^2.4.7",
     "lasso-sass": "^3.0.0",

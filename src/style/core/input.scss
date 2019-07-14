@@ -1,0 +1,58 @@
+// =====================================================================================================
+//    ___                   _   
+//   |_ _|_ __  _ __  _   _| |_ 
+//    | || '_ \| '_ \| | | | __|
+//    | || | | | |_) | |_| | |_ 
+//   |___|_| |_| .__/ \__,_|\__|
+//             |_|              
+// =====================================================================================================
+////
+/// The styles for all user input components.
+/// @group core
+////
+// Dependencies
+@import 'colors';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This class is limited to input fields that require text or number input. An input field must always be after an input label.
+.input {
+  padding: 12px 0;
+  width: 100%;
+
+  input {
+    &[type='text'],
+    &[type='password'],
+    &[type='url'],
+    &[type='number'],
+    &[type='tel'],
+    &[type='search'],
+    &[type='email'] {
+      background-color: $light;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 8px 12px;
+      width: 100%;
+    }
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This class describes buttons.
+.button {
+  background-color: $color;
+  border-radius: 4px;
+  color: $white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 8px;
+  padding: 4px 8px;
+  text-transform: uppercase;
+}

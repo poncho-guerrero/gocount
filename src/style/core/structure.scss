@@ -1,0 +1,52 @@
+// =====================================================================================================
+//    ____  _                   _                  
+//   / ___|| |_ _ __ _   _  ___| |_ _   _ _ __ ___ 
+//   \___ \| __| '__| | | |/ __| __| | | | '__/ _ \
+//    ___) | |_| |  | |_| | (__| |_| |_| | | |  __/
+//   |____/ \__|_|   \__,_|\___|\__|\__,_|_|  \___|
+//
+// =====================================================================================================
+////
+/// Defines hierarchically high elements of a page structure.
+/// @group core
+////
+// Dependencies
+@import '../config/layouts';
+@import 'colors';
+
+/// Body
+body {
+  background: $light;
+  height: 100vh;
+  width: 100vw;
+}
+
+/// Main
+main {
+  @include display-on('hand') {
+    grid-template-columns: 1fr 18fr 1fr;
+  }
+  @include display-on('page') {
+    grid-template-columns: 1fr 8fr 1fr;
+  }
+  @include display-on('book', $until: 'wide') {
+    grid-template-columns: 3fr 4fr 3fr;
+  }
+
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 12px;
+  grid-template-areas:
+  'left center right';
+}
+
+/// Container
+.container {
+  background: $white;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  grid-area: center;
+  margin: 24px 0;
+  padding: 24px;
+  width: 100%;
+}

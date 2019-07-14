@@ -15,7 +15,6 @@ var Routes;
  * 
  * @param {object} app - Express app object.
  * 
- * @see {@link https://github.com/marko-js-samples/weather/blob/master/routes.js example}.
  * @memberof Routes
  */
 var defineRoutes = function(app) {

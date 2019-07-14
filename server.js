@@ -18,13 +18,16 @@
  * @requires NPM:lasso (and configure)
  * @requires ./routes:routes
  */
-
 // Imports Express.js module.
 var express = require('express');
 // Initiate the express app.
 var app = express();
 // Enable Lasso for rendering responses.
 app.use(require('lasso/middleware').serveStatic());
+// Handles POST requests.
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Enables `require(foo.marko);` with the default configuration options. 
 // Add configuration options with `require('marko/node-require').install(options)`.
@@ -36,6 +39,9 @@ require('lasso').configure({
 
 // Importing all routes from the helper file.
 require('./routes.js')(app);
+
+// Import all database configuration
+require('./database.js')(app);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
