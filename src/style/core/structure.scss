@@ -1,6 +1,6 @@
 // =====================================================================================================
-//    ____  _                   _                  
-//   / ___|| |_ _ __ _   _  ___| |_ _   _ _ __ ___ 
+//    ____  _                   _
+//   / ___|| |_ _ __ _   _  ___| |_ _   _ _ __ ___
 //   \___ \| __| '__| | | |/ __| __| | | | '__/ _ \
 //    ___) | |_| |  | |_| | (__| |_| |_| | | |  __/
 //   |____/ \__|_|   \__,_|\___|\__|\__,_|_|  \___|
@@ -24,35 +24,31 @@ body {
 /// Main
 main {
   @include display-on('hand') {
-    margin: 0 5%;
     width: 90%;
   }
   @include display-on('page') {
-    margin: 0 10%;
     width: 80%;
   }
   @include display-on('book') {
-    margin: 0 20%;
     width: 60%;
   }
   @include display-on('desk') {
-    margin: 0 30%;
     width: 40%;
   }
   @include display-on('wide') {
-    margin: 0 35%;
     width: 30%;
   }
 
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  padding-top: 1em;
 }
 
 /// Container
 .container {
   grid-area: center;
-  margin: 12px 0;
-  padding: 12px;
+  margin: 8px 0;
   width: 100%;
 }
 
@@ -61,6 +57,7 @@ main {
   background: $white;
   border-radius: 4px;
   box-shadow: $shadow;
+  padding: 24px;
 }
 
 /// Menu

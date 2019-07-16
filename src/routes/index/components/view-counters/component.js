@@ -15,11 +15,37 @@ const axios = require('axios');
  * @name Counters
  */
 class Counters {
+  onCreate() {
+    this.state = {
+      documents: []
+    }
+  }
+
+  onMount() {
+    this.update();
+  }
+
   newCounter() {
-    axios
-      .post('/server/newCounter', {
-        name: 'Example'
-      });
+    var name = prompt('Write a name for the counter.');
+
+    if(name) {
+      axios
+        .post('/server/newCounter', {
+          name: name
+        })
+        .then(() => {
+          this.update();
+        });
+    }
+  }
+
+  update() {
+    console.log('updated');
+    axios.get('/server/getCounters').then(res => {
+      this.state.documents = res.data.documents;
+    }).catch(function(err){
+      console.log(err.message);
+    });
   }
 }
 

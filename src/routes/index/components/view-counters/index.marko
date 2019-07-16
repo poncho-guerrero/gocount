@@ -2,4 +2,20 @@ div.container.menu
   signout
   a.button on-click("newCounter") -- New Counter
 div.container.card
-  h1 -- Counters
+  p.title -- Counters
+  $ if(state.documents[0]){ console.log('counters', state.documents) };
+  for|counter| of=state.documents
+    if(counter.data.counts[0])
+      $ var d = new Date(counter.data.counts[counter.data.counts.length - 1]._seconds * 1000);
+      $ var options = {
+        weekday: 'short', 
+        year: 'numeric',
+        month: 'short', 
+        day: 'numeric', 
+        hour: 'numeric', 
+        minute: 'numeric'
+      }
+      $ var date = d.toLocaleString("en-US", options);
+    else
+      $ var date = 'No counts yet.';
+    counter name=counter.data.name last=date counterId=counter.id on-count('update');

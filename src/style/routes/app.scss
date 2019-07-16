@@ -1,0 +1,37 @@
+// =====================================================================================================
+//       _                
+//      / \   _ __  _ __  
+//     / _ \ | '_ \| '_ \ 
+//    / ___ \| |_) | |_) |
+//   /_/   \_\ .__/| .__/ 
+//           |_|   |_|    
+// =====================================================================================================
+@import '../core/colors';
+@import '../config/helper';
+
+.counter {
+  @include noselect;
+
+  align-items: center;
+  display: grid;
+  grid-auto-rows: 40px;
+  grid-gap: 8px;
+  grid-template-areas:
+  'label clicker';
+  grid-template-columns: auto 40px;
+  margin-top: 8px;
+  width: 100%;
+
+  .label {
+    grid-area: label;
+  }
+
+  .last {
+    font-size: 12px;
+  }
+
+  .clicker {
+    cursor: pointer;
+    grid-area: clicker;
+  }
+}
