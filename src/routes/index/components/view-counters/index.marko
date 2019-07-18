@@ -3,6 +3,7 @@ div.container.menu
   a.button on-click("newCounter") -- New Counter
 div.container.card
   p.title -- Counters
+  chart
   $ if(state.documents[0]){ console.log('counters', state.documents) };
   for|counter| of=state.documents
     if(counter.data.counts[0])
