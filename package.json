@@ -26,7 +26,7 @@
     "lasso-sass": "^3.0.0",
     "marko": "^4.18.9",
     "marko-cli": "^7.0.10",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "require-self-ref": "^2.0.1"
   },
   "devDependencies": {
